@@ -13,12 +13,6 @@
         <img src="logo.png" alt="Royalty Homes logo" class="logo"/>
       </a>
       <h1 class="site-title">Royalty Homes</h1>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
-        <span class="sr-only">Toggle navigation</span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
       <nav class="site-nav" id="mobile-menu">
         <a href="#home">Home</a>
         <a href="#about">About</a>
@@ -26,6 +20,21 @@
         <a href="#gallery">Gallery</a>
         <a href="#contact">Contact</a>
       </nav>
+      <div class="header-actions">
+        <button class="theme-switcher" type="button" aria-label="Toggle light/dark theme" aria-pressed="false">
+          <span class="theme-switcher__icon theme-switcher__icon--sun" aria-hidden="true">☀</span>
+          <span class="theme-switcher__track">
+            <span class="theme-switcher__thumb"></span>
+          </span>
+          <span class="theme-switcher__icon theme-switcher__icon--moon" aria-hidden="true">🌙</span>
+        </button>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="sr-only">Toggle navigation</span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -58,7 +67,7 @@
       <div class="card">
         <img src="ceiling.jpeg" alt="Pop ceiling design" class="card-image" />
         <h3>Pop Ceiling Design</h3>
-        <p">Custom ceiling finishes that combine style and functionality, creating elegant focal points for every room.</p>
+        <p>Custom ceiling finishes that combine style and functionality, creating elegant focal points for every room.</p>
       </div>
       <div class="card">
         <img src="wallpainting.jpeg" alt="Wall work design" class="card-image" />
@@ -105,7 +114,7 @@
 
   <section class="section" id="gallery">
     <h2>Our Gallery</h2>
-    <p style="text-align: center; color: #475569; margin-bottom: 40px;">Browse our collection of luxury design projects and finished spaces</p>
+    <p style="text-align: center; color: var(--text-soft); margin-bottom: 40px;">Browse our collection of luxury design projects and finished spaces</p>
     <div class="gallery-carousel">
       <button class="carousel-btn prev-btn" onclick="scrollGallery(-1)">❮</button>
       <div class="carousel-container">
@@ -177,6 +186,29 @@
   </footer>
 
   <script>
+    const themeToggle = document.querySelector('.theme-switcher');
+    const rootElement = document.documentElement;
+    const themeStorageKey = 'royaltyHomesTheme';
+
+    const applyTheme = (theme) => {
+      const selectedTheme = theme === 'dark' ? 'dark' : 'light';
+      rootElement.dataset.theme = selectedTheme;
+      themeToggle?.setAttribute('aria-pressed', String(selectedTheme === 'dark'));
+      localStorage.setItem(themeStorageKey, selectedTheme);
+    };
+
+    const getPreferredTheme = () => {
+      const saved = localStorage.getItem(themeStorageKey);
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+
+    applyTheme(getPreferredTheme());
+
+    themeToggle?.addEventListener('click', () => {
+      applyTheme(rootElement.dataset.theme === 'dark' ? 'light' : 'dark');
+    });
+
     function scrollGallery(direction) {
       const track = document.querySelector('.carousel-track');
       const itemWidth = track.querySelector('.gallery-item').offsetWidth + 20; // include gap
