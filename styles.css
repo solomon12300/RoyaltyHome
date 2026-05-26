@@ -175,34 +175,34 @@ html[data-theme="light"] .theme-switcher__icon--moon {
 }
 .menu-toggle {
   display: none;
-  border: 1px solid var(--primary);
-  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid var(--border);
+  background: var(--surface);
   cursor: pointer;
   width: 42px;
   height: 46px;
-  padding: 8px;
+  padding: 10px;
   position: relative;
   flex-shrink: 0;
-  border-radius: 16px;
-  transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  border-radius: 999px;
+  transition: background 0.3s ease, transform 0.25s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 .menu-toggle:hover,
 .menu-toggle:focus-visible {
-  background: rgba(245, 158, 11, 0.16);
-  border-color: var(--primary);
+  transform: translateY(-1px);
   outline: none;
-  transform: scale(1.03);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
 }
 .menu-toggle span {
   display: block;
-  width: 24px;
-  height: 3px;
-  background: var(--primary);
+  width: 20px;
+  height: 2.5px;
+  background: var(--text);
   border-radius: 999px;
   margin: 0;
   transition: transform 0.25s ease, opacity 0.25s ease;
